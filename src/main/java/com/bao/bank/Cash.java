@@ -1,0 +1,80 @@
+package com.bao.bank;
+
+/**
+ * Cash asset. Represents cash in the account. One kind of asset.
+ */
+public class Cash implements Asset {
+  private double balance;
+
+  /**
+   * Constructor
+   * @param initial_balance: Initial cash balance
+   */
+  public Cash(double initial_balance) {
+    this.balance = initial_balance;
+  }
+
+  /**
+   * Get asset type.
+   * @return asset type
+   */
+  @Override
+  public AssetType getType() {
+    return AssetType.CASH;
+  }
+
+  /**
+   * Get cash balance.
+   * @return cash balance
+   */
+  @Override
+  public double getBalance() {
+    return balance;
+  }
+
+  /**
+   * Set cash balance.
+   * @param balance: new cash balance
+   */
+  public void setBalance(double balance) {
+    this.balance = balance;
+  }
+
+  /**
+   * Add cash asset to the account.
+   * @param asset: cash asset to add
+   * @throws IllegalArgumentException if asset is not cash asset
+   */
+  @Override
+  public void add(Asset asset) throws IllegalArgumentException {
+    if (asset.getType() != AssetType.CASH) {
+      throw new IllegalArgumentException(
+        String.format("Cannot add %s asset to cash asset",
+          asset.getType()));
+    }
+
+    balance += asset.getBalance();
+  }
+
+  /**
+   * Minus cash asset from the account.
+   * @param asset: cash asset to minus
+   * @throws IllegalArgumentException if asset is not cash asset
+   */
+  @Override
+  public void minus(Asset asset) throws IllegalArgumentException {
+    if (asset.getType() != AssetType.CASH) {
+      throw new IllegalArgumentException("Cannot minus non-cash asset from cash asset");
+    }
+    balance -= asset.getBalance();
+  }
+  
+  /**
+   * Get cash asset as string.
+   * @return cash asset as string
+   */
+  @Override
+  public String toString() {
+    return String.format("Cash: %.2f", balance);
+  }
+}
