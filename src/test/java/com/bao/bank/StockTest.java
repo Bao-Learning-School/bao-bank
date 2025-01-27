@@ -61,9 +61,10 @@ public class StockTest {
     Stock stock2 = new Stock("AAPL", 500, 100.0);
     IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () -> {
       stock1.minus(stock2);
-    });
+    }); 
 
     Assert.assertEquals(error.getMessage(),
-     "Insufficient number of shares of AAPL, number of shares to minus 500, current number of shares is 100");
+     "Insufficient number of shares of AAPL, " +
+     "number of shares to minus 500, current number of shares is 100");
   }
 }

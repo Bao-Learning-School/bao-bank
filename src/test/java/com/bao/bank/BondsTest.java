@@ -59,12 +59,12 @@ public class BondsTest {
       public void minus(Asset asset) {}
     };
 
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-      bonds.add(nonBonds);
-    });
-    
-    assertEquals(exception.getMessage(), "Cannot add STOCK asset to bonds asset");
-
+    IllegalArgumentException exception =
+        assertThrows(IllegalArgumentException.class, () -> {
+            bonds.add(nonBonds);
+        });
+    assertEquals("Cannot add STOCK asset to bonds asset",
+                 exception.getMessage());
   }
 
   @Test
