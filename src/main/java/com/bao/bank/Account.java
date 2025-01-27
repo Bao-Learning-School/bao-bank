@@ -146,7 +146,7 @@ public class Account {
           throw new Error(String.format(
             "Insufficient balance of %s, amount to withdraw $%.2f, current balance is $%.2f",
             asset.getType(), asset_to_withdraw.getBalance(), asset.getBalance()));
-        } else if (asset.getBalance() == asset.getBalance()) {
+        } else if (asset.getBalance() == asset_to_withdraw.getBalance()) {
           assets.remove(asset);
         } else {
           asset.minus(asset_to_withdraw);
