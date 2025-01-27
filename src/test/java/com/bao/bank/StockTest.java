@@ -1,11 +1,7 @@
 package com.bao.bank;
 
-import com.bao.bank.Asset;
-import com.bao.bank.Stock;
 import org.junit.Test;
-
 import static org.junit.Assert.assertThrows;
-
 import org.junit.Assert;
 
 public class StockTest {
