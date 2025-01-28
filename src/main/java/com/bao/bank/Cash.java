@@ -15,15 +15,6 @@ public class Cash implements Asset {
   }
 
   /**
-   * Get asset type.
-   * @return asset type
-   */
-  @Override
-  public AssetType getType() {
-    return AssetType.CASH;
-  }
-
-  /**
    * Get cash balance.
    * @return cash balance
    */
@@ -47,7 +38,7 @@ public class Cash implements Asset {
    */
   @Override
   public boolean isCompatible(Asset asset) {
-    return asset.getType() == AssetType.CASH;
+    return asset instanceof Cash;
   }
 
   /**
@@ -57,10 +48,10 @@ public class Cash implements Asset {
    */
   @Override
   public void add(Asset asset) throws IllegalArgumentException {
-    if (asset.getType() != AssetType.CASH) {
+    if (!isCompatible(asset)) {
       throw new IllegalArgumentException(
         String.format("Cannot add %s asset to cash asset",
-          asset.getType()));
+          asset.getClass()));
     }
 
     balance += asset.getBalance();
@@ -73,7 +64,7 @@ public class Cash implements Asset {
    */
   @Override
   public void minus(Asset asset) throws IllegalArgumentException {
-    if (asset.getType() != AssetType.CASH) {
+    if (!isCompatible(asset)) {
       throw new IllegalArgumentException("Cannot minus non-cash asset from cash asset");
     }
     balance -= asset.getBalance();

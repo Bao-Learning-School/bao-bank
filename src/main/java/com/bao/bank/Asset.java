@@ -40,12 +40,6 @@ public interface Asset {
   }
 
   /**
-   * Get asset type.
-   * @return asset type
-   */
-  public AssetType getType();
-
-  /**
    * Get asset balance.
    * @return asset balance
    */

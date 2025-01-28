@@ -12,12 +12,6 @@ public class BondsTest {
   }
 
   @Test
-  public void testGetType() {
-    Bonds bonds = new Bonds(1000.0);
-    assertEquals(Asset.AssetType.BONDS, bonds.getType());
-  }
-
-  @Test
   public void testGetBalance() {
     Bonds bonds = new Bonds(1000.0);
     assertEquals(1000.0, bonds.getBalance());
@@ -43,11 +37,6 @@ public class BondsTest {
     Bonds bonds = new Bonds(1000.0);
     Asset nonBonds = new Asset() {
       @Override
-      public AssetType getType() {
-        return Asset.AssetType.STOCK;
-      }
-
-      @Override
       public double getBalance() {
         return 500.0;
       }
@@ -68,7 +57,7 @@ public class BondsTest {
         assertThrows(IllegalArgumentException.class, () -> {
             bonds.add(nonBonds);
         });
-    assertEquals("Cannot add STOCK asset to bonds asset",
+    assertEquals("Cannot add class com.bao.bank.BondsTest$1 asset to bonds asset",
                  exception.getMessage());
   }
 
@@ -84,11 +73,6 @@ public class BondsTest {
   public void testMinusNonBondsAsset() {
     Bonds bonds = new Bonds(1000.0);
     Asset nonBondsAsset = new Asset() {
-      @Override
-      public AssetType getType() {
-        return AssetType.STOCK;
-      }
-
       @Override
       public double getBalance() {
         return 500.0;

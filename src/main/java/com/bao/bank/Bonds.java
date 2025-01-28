@@ -15,15 +15,6 @@ public class Bonds implements Asset {
   }
 
   /**
-   * Get asset type.
-   * @return asset type
-   */
-  @Override
-  public AssetType getType() {
-    return AssetType.BONDS;
-  }
-
-  /**
    * Get cash balance.
    * @return cash balance
    */
@@ -47,7 +38,7 @@ public class Bonds implements Asset {
    */
   @Override
   public boolean isCompatible(Asset asset) {
-    return asset.getType() == AssetType.BONDS;
+    return asset instanceof Bonds;
   }
 
   /**
@@ -57,10 +48,10 @@ public class Bonds implements Asset {
    */
   @Override
   public void add(Asset asset) throws IllegalArgumentException {
-    if (asset.getType() != AssetType.BONDS) {
+    if (!isCompatible(asset)) {
       throw new IllegalArgumentException(
         String.format("Cannot add %s asset to bonds asset",
-          asset.getType()));
+          asset.getClass()));
     }
 
     balance += asset.getBalance();
@@ -73,7 +64,7 @@ public class Bonds implements Asset {
    */
   @Override
   public void minus(Asset asset) throws IllegalArgumentException {
-    if (asset.getType() != AssetType.BONDS) {
+    if (!isCompatible(asset)) {
       throw new IllegalArgumentException("Cannot minus non-cash asset from cash asset");
     }
 

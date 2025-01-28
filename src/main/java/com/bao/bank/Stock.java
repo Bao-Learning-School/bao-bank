@@ -56,15 +56,6 @@ public class Stock implements Asset {
   }
 
   /**
-   * Get asset type.
-   * @return asset type.
-   */
-  @Override
-  public AssetType getType() {
-    return AssetType.STOCK;
-  }
-
-  /**
    * Get asset balance.
    * @return asset balance.
    */
@@ -98,7 +89,7 @@ public class Stock implements Asset {
     if (!(asset instanceof Stock)) {
       throw new IllegalArgumentException(
         String.format("Cannot add %s asset to stock asset",
-          asset.getType()));
+          asset.getClass()));
     }
 
     Stock stock = (Stock) asset;
@@ -125,7 +116,7 @@ public class Stock implements Asset {
     if (!(asset instanceof Stock)) {
       throw new IllegalArgumentException(
         String.format("Cannot minus %s asset from stock asset",
-          asset.getType()));
+          asset.getClass()));
     }
 
     Stock stock = (Stock) asset;
