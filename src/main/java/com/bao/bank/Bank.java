@@ -1,7 +1,6 @@
 package com.bao.bank;
 
 import java.util.List;
-import com.bao.bank.Account;
 
 public class Bank {
   // - id : int
