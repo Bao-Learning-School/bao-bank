@@ -41,6 +41,16 @@ public class Cash implements Asset {
   }
 
   /**
+   * Check if  is cash ompatible with another asset for addition and subtraction.
+   * @param asset: asset to check compatibility with
+   * @return true if compatible, false otherwise
+   */
+  @Override
+  public boolean isCompatible(Asset asset) {
+    return asset.getType() == AssetType.CASH;
+  }
+
+  /**
    * Add cash asset to the account.
    * @param asset: cash asset to add
    * @throws IllegalArgumentException if asset is not cash asset

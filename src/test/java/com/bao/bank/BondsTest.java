@@ -53,6 +53,11 @@ public class BondsTest {
       }
 
       @Override
+      public boolean isCompatible(Asset asset) {
+        return false;
+      }
+
+      @Override
       public void add(Asset asset) {}
 
       @Override
@@ -87,6 +92,11 @@ public class BondsTest {
       @Override
       public double getBalance() {
         return 500.0;
+      }
+
+      @Override
+      public boolean isCompatible(Asset asset) {
+        return false;
       }
 
       @Override

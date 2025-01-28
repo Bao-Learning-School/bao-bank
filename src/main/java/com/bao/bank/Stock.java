@@ -74,6 +74,20 @@ public class Stock implements Asset {
   }
 
   /**
+   * Check if Stock is compatible with another asset for addition and subtraction.
+   * @param asset: asset to check compatibility with
+   * @return true if compatible, false otherwise
+   */
+  @Override
+  public boolean isCompatible(Asset asset) {
+    if(!(asset instanceof Stock)) {
+      return false;
+    }
+    Stock stock = (Stock) asset;
+    return stock.getTicker().equals(ticker);    
+  }
+
+  /**
    * Add stock asset to the account.
    * @param asset: stock asset to add
    * @throws IllegalArgumentException if asset is not stock asset

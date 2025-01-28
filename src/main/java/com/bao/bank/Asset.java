@@ -52,6 +52,14 @@ public interface Asset {
   public double getBalance();
 
   /**
+   * Check if asset is compatible with another asset 
+   * for addition and subtaction.
+   * @param asset: asset to check compatibility with 
+   * @return true if compatible, false otherwise
+   */
+  public boolean isCompatible(Asset asset);
+
+  /**
    * Add asset to the account.
    * @param asset: asset to add
    */

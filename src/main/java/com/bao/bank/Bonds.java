@@ -41,6 +41,16 @@ public class Bonds implements Asset {
   }
 
   /**
+   * Check if bonds is compatible with another asset for addition and subtraction.
+   * @param asset: asset to check compatibility with
+   * @return true if compatible, false otherwise
+   */
+  @Override
+  public boolean isCompatible(Asset asset) {
+    return asset.getType() == AssetType.BONDS;
+  }
+
+  /**
    * Add bonds asset to the account.
    * @param asset: bonds asset to add
    * @throws IllegalArgumentException if asset is not bonds asset
