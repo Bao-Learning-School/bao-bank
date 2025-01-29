@@ -144,8 +144,8 @@ public class Account {
       if (asset.isCompatible(asset_to_withdraw)) {
         if (asset.getBalance() < asset_to_withdraw.getBalance()) {
           throw new Error(String.format(
-            "Insufficient balance of %s, amount to withdraw $%.2f, current balance is $%.2f",
-            asset, asset_to_withdraw.getBalance(), asset.getBalance()));
+            "Insufficient balance: cannot withdraw %s from %s",
+            asset_to_withdraw, asset));
         } else if (asset.getBalance() == asset_to_withdraw.getBalance()) {
           assets.remove(asset);
         } else {

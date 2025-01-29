@@ -11,10 +11,10 @@ public class AccountTest {
   @BeforeEach
   public void setUp() {
     account = new Account(1,
-                          Account.AccountType.PERSONAL,
-                          "John Doe",
-                          "123 Main St",
-                          "555-1234");
+        Account.AccountType.PERSONAL,
+        "John Doe",
+        "123 Main St",
+        "555-1234");
   }
 
   @Test
@@ -48,7 +48,7 @@ public class AccountTest {
   public void testWithdraw() {
     Asset asset = new Cash(100.0);
     account.deposit(asset);
-    account.withdraw( new Cash(50.0));
+    account.withdraw(new Cash(50.0));
     assertEquals(50.0, account.getBalance(), 0.01);
   }
 
@@ -60,9 +60,8 @@ public class AccountTest {
       account.withdraw(new Cash(150.0));
     });
 
-    assertEquals("Insufficient balance of (Cash: $100.00), amount to " +
-                 "withdraw $150.00, current balance is $100.00",
-                 error.getMessage());
+    assertEquals("Insufficient balance: cannot withdraw (Cash: $150.00) from (Cash: $100.00)",
+        error.getMessage());
   }
 
   @Test
