@@ -18,6 +18,25 @@ public class AccountTest {
   }
 
   @Test
+  public void testDepositDifferentAssets() {
+    Asset cash = new Cash(100.0);
+    Asset stock1 = new Stock("GOOG", 200, 1500.0);
+    Asset stock2 = new Stock("AAPL", 100, 100.0);
+    Asset bonds = new Bonds(1000.0);
+    account.deposit(cash);
+    account.deposit(stock1);
+    account.deposit(stock2);
+    account.deposit(bonds);
+    account.deposit(new Cash(150.0));
+    List<Asset> assets = account.getAssets();
+    assertEquals(4, assets.size());
+    assertEquals(cash, assets.get(0));
+    assertEquals(stock1, assets.get(1));
+    assertEquals(stock2, assets.get(2));
+    assertEquals(bonds, assets.get(3));
+  }
+
+  @Test
   public void testAccountCreation() {
     assertEquals(1, account.getId());
     assertEquals(Account.AccountType.PERSONAL, account.getType());
@@ -75,12 +94,26 @@ public class AccountTest {
   }
 
   @Test
-  public void testWithdrawDifferentAsset() {
-    Asset asset = new Cash(100.0);
-    account.deposit(asset);
+  public void testWithdrawDifferentAssets() {
+    Asset stock1 = new Stock("GOOG", 200, 1500.0);
+    Asset stock2 = new Stock("AAPL", 100, 100.0);
+    Asset bonds = new Bonds(1000.0);
+    account.deposit(stock1);
+    account.deposit(stock2);
+    account.deposit(bonds);
+    account.withdraw(new Stock("GOOG", 100, 1500.0));
+    account.withdraw(new Stock("AAPL", 50, 100.0));
+    account.withdraw(new Bonds(500.0));
+
     Error error = assertThrows(Error.class, () -> {
-      account.withdraw(new Bonds(150));
+      account.withdraw(new Cash(150.0));
     });
-    assertEquals("Asset (Bonds: $150.00) not found", error.getMessage());
+    assertEquals("Asset (Cash: $150.00) not found", error.getMessage());
+
+    Error error2 = assertThrows(Error.class, () -> {
+      account.withdraw(new Stock("GOOG", 300, 1500.0));
+    });
+    assertEquals("Insufficient balance: cannot withdraw (Stock: GOOG x 300 @ $1500.00) "
+        + "from (Stock: GOOG x 100 @ $1500.00)", error2.getMessage());
   }
 }
