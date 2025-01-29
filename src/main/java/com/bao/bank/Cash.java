@@ -8,6 +8,7 @@ public class Cash implements Asset {
 
   /**
    * Constructor
+   * 
    * @param initial_balance: Initial cash balance
    */
   public Cash(double initial_balance) {
@@ -15,7 +16,18 @@ public class Cash implements Asset {
   }
 
   /**
+   * Get the string representation of the Cash asset.
+   * 
+   * @return cash asset as string
+   */
+  @Override
+  public String toString() {
+    return String.format("(Cash: $%.2f)", balance);
+  }
+
+  /**
    * Get cash balance.
+   * 
    * @return cash balance
    */
   @Override
@@ -25,6 +37,7 @@ public class Cash implements Asset {
 
   /**
    * Set cash balance.
+   * 
    * @param balance: new cash balance
    */
   public void setBalance(double balance) {
@@ -32,7 +45,8 @@ public class Cash implements Asset {
   }
 
   /**
-   * Check if  is cash ompatible with another asset for addition and subtraction.
+   * Check if is cash ompatible with another asset for addition and subtraction.
+   * 
    * @param asset: asset to check compatibility with
    * @return true if compatible, false otherwise
    */
@@ -43,6 +57,7 @@ public class Cash implements Asset {
 
   /**
    * Add cash asset to the account.
+   * 
    * @param asset: cash asset to add
    * @throws IllegalArgumentException if asset is not cash asset
    */
@@ -50,8 +65,8 @@ public class Cash implements Asset {
   public void add(Asset asset) throws IllegalArgumentException {
     if (!isCompatible(asset)) {
       throw new IllegalArgumentException(
-        String.format("Cannot add %s asset to cash asset",
-          asset.getClass()));
+          String.format("Cannot add %s asset to cash asset",
+              asset));
     }
 
     balance += asset.getBalance();
@@ -59,6 +74,7 @@ public class Cash implements Asset {
 
   /**
    * Minus cash asset from the account.
+   * 
    * @param asset: cash asset to minus
    * @throws IllegalArgumentException if asset is not cash asset
    */
@@ -68,14 +84,5 @@ public class Cash implements Asset {
       throw new IllegalArgumentException("Cannot minus non-cash asset from cash asset");
     }
     balance -= asset.getBalance();
-  }
-  
-  /**
-   * Get cash asset as string.
-   * @return cash asset as string
-   */
-  @Override
-  public String toString() {
-    return String.format("Cash: %.2f", balance);
   }
 }

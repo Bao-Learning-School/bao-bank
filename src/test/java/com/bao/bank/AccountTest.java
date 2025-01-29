@@ -60,7 +60,7 @@ public class AccountTest {
       account.withdraw(new Cash(150.0));
     });
 
-    assertEquals("Insufficient balance of class com.bao.bank.Cash, amount to " +
+    assertEquals("Insufficient balance of (Cash: $100.00), amount to " +
                  "withdraw $150.00, current balance is $100.00",
                  error.getMessage());
   }
@@ -82,6 +82,6 @@ public class AccountTest {
     Error error = assertThrows(Error.class, () -> {
       account.withdraw(new Bonds(150));
     });
-    assertEquals("Asset class com.bao.bank.Bonds not found", error.getMessage());
+    assertEquals("Asset (Bonds: $150.00) not found", error.getMessage());
   }
 }

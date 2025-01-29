@@ -21,8 +21,9 @@ public class Stock implements Asset {
 
   /**
    * Constructor.
-   * @param ticker: Stock ticker
-   * @param numShares Number of shares
+   * 
+   * @param ticker:       Stock ticker
+   * @param numShares     Number of shares
    * @param pricePerShare Price per share
    */
   public Stock(String ticker, int numShares, double pricePerShare) {
@@ -31,8 +32,14 @@ public class Stock implements Asset {
     this.pricePerShare = pricePerShare;
   }
 
+  public String toString() {
+    return String.format("(Stock: %s x %d @ $%.2f)",
+        ticker, numShares, pricePerShare);
+  }
+
   /**
    * Get stock ticker.
+   * 
    * @return stock ticker.
    */
   public String getTicker() {
@@ -41,6 +48,7 @@ public class Stock implements Asset {
 
   /**
    * Get number of shares.
+   * 
    * @return number of shares.
    */
   public int getNumShares() {
@@ -49,6 +57,7 @@ public class Stock implements Asset {
 
   /**
    * Get price per share.
+   * 
    * @return price per share.
    */
   public double getPricePerShare() {
@@ -57,6 +66,7 @@ public class Stock implements Asset {
 
   /**
    * Get asset balance.
+   * 
    * @return asset balance.
    */
   @Override
@@ -66,20 +76,22 @@ public class Stock implements Asset {
 
   /**
    * Check if Stock is compatible with another asset for addition and subtraction.
+   * 
    * @param asset: asset to check compatibility with
    * @return true if compatible, false otherwise
    */
   @Override
   public boolean isCompatible(Asset asset) {
-    if(!(asset instanceof Stock)) {
+    if (!(asset instanceof Stock)) {
       return false;
     }
     Stock stock = (Stock) asset;
-    return stock.getTicker().equals(ticker);    
+    return stock.getTicker().equals(ticker);
   }
 
   /**
    * Add stock asset to the account.
+   * 
    * @param asset: stock asset to add
    * @throws IllegalArgumentException if asset is not stock asset
    * @throws IllegalArgumentException if stock tickers are different
@@ -88,24 +100,25 @@ public class Stock implements Asset {
   public void add(Asset asset) throws IllegalArgumentException {
     if (!(asset instanceof Stock)) {
       throw new IllegalArgumentException(
-        String.format("Cannot add %s asset to stock asset",
-          asset.getClass()));
+          String.format("Cannot add %s asset to stock asset",
+              asset));
     }
 
     Stock stock = (Stock) asset;
     if (!stock.getTicker().equals(ticker)) {
       throw new IllegalArgumentException(
-        String.format("Cannot add stock with different ticker %s to stock %s",
-          stock.getTicker(), ticker));
+          String.format("Cannot add stock with different ticker %s to stock %s",
+              stock.getTicker(), ticker));
     }
 
     pricePerShare = (getBalance() + stock.getBalance()) /
-                    (numShares + stock.getNumShares());
+        (numShares + stock.getNumShares());
     numShares += stock.getNumShares();
   }
 
   /**
    * Minus stock asset from the account.
+   * 
    * @param asset: stock asset to minus
    * @throws IllegalArgumentException if asset is not stock asset
    * @throws IllegalArgumentException if stock tickers are different
@@ -115,21 +128,21 @@ public class Stock implements Asset {
   public void minus(Asset asset) throws IllegalArgumentException {
     if (!(asset instanceof Stock)) {
       throw new IllegalArgumentException(
-        String.format("Cannot minus %s asset from stock asset",
-          asset.getClass()));
+          String.format("Cannot minus %s asset from stock asset",
+              asset));
     }
 
     Stock stock = (Stock) asset;
     if (!stock.getTicker().equals(ticker)) {
       throw new IllegalArgumentException(
-        String.format("Cannot minus stock with different ticker %s from stock %s",
-          stock.getTicker(), ticker));
+          String.format("Cannot minus stock with different ticker %s from stock %s",
+              stock.getTicker(), ticker));
     }
 
     if (numShares < stock.getNumShares()) {
       throw new IllegalArgumentException(String.format(
-        "Insufficient number of shares of %s, number of shares to minus %d, current number of shares is %d",
-        ticker, stock.getNumShares(), numShares));
+          "Insufficient number of shares of %s, number of shares to minus %d, current number of shares is %d",
+          ticker, stock.getNumShares(), numShares));
     } else {
       numShares -= stock.getNumShares();
     }

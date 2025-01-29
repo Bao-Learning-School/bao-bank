@@ -47,18 +47,24 @@ public class BondsTest {
       }
 
       @Override
-      public void add(Asset asset) {}
+      public void add(Asset asset) {
+      }
 
       @Override
-      public void minus(Asset asset) {}
+      public void minus(Asset asset) {
+      }
+
+      @Override
+      public String toString() {
+        return "(___)";
+      }
     };
 
-    IllegalArgumentException exception =
-        assertThrows(IllegalArgumentException.class, () -> {
-            bonds.add(nonBonds);
-        });
-    assertEquals("Cannot add class com.bao.bank.BondsTest$1 asset to bonds asset",
-                 exception.getMessage());
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+      bonds.add(nonBonds);
+    });
+    assertEquals("Cannot add (___) asset to bonds asset",
+        exception.getMessage());
   }
 
   @Test
@@ -84,10 +90,12 @@ public class BondsTest {
       }
 
       @Override
-      public void add(Asset asset) {}
+      public void add(Asset asset) {
+      }
 
       @Override
-      public void minus(Asset asset) {}
+      public void minus(Asset asset) {
+      }
     };
 
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -118,6 +126,6 @@ public class BondsTest {
   @Test
   public void testToString() {
     Bonds bonds = new Bonds(1000.0);
-    assertEquals("Bonds: 1000.00", bonds.toString());
+    assertEquals("(Bonds: $1000.00)", bonds.toString());
   }
 }
