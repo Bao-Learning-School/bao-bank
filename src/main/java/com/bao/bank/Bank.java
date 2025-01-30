@@ -5,15 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
-  // - id : int
-  // - name : String
-  // - address: String
-  // - accounts: List<Account>
-  // + add( Account account )
-  // + remove(Accounta account)
-  // + getAccount(int id)
-  // + getAccount(String owner_name)
-
   private final int id;
   private final String name;
   private final String address;
@@ -98,6 +89,16 @@ public class Bank {
         .orElse(null);
   }
 
+  /**
+   * Get string representation of the bank.
+   *
+   * @return string representation of the bank
+   */
+  @Override
+  public String toString() {
+    return String.format("Bank{id:%d, name:%s, address:%s, phone:%s}", id, name, address, phone);
+  }
+
   public static void main(String[] args) {
     Bank bank = new Bank(1, "Bank of America", "Charlotte, NC", "1-800-432-1000");
     bank.openAccount(1, AccountType.PERSONAL, "Alice", "123 Main St", "123-456-7890");
@@ -105,5 +106,6 @@ public class Bank {
     bank.openAccount(3, AccountType.BUSINESS, "Charlie", "789 Oak St", "345-678-9012");
     bank.closeAccount(2);
     bank.closeAccount("Charlie");
+    System.out.println(bank);
   }
 }
