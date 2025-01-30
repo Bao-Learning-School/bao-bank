@@ -1,8 +1,9 @@
 package com.bao.bank;
 
-import org.junit.Test;
 import static org.junit.Assert.assertThrows;
+
 import org.junit.Assert;
+import org.junit.Test;
 
 public class StockTest {
   @Test
@@ -49,12 +50,16 @@ public class StockTest {
   public void testMinus_InsufficentFunds() {
     Stock stock1 = new Stock("AAPL", 100, 100.0);
     Stock stock2 = new Stock("AAPL", 500, 100.0);
-    IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () -> {
-      stock1.minus(stock2);
-    }); 
+    IllegalArgumentException error =
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> {
+              stock1.minus(stock2);
+            });
 
-    Assert.assertEquals(error.getMessage(),
-     "Insufficient number of shares of AAPL, " +
-     "number of shares to minus 500, current number of shares is 100");
+    Assert.assertEquals(
+        error.getMessage(),
+        "Insufficient number of shares of AAPL, "
+            + "number of shares to minus 500, current number of shares is 100");
   }
 }

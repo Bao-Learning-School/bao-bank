@@ -1,34 +1,22 @@
 package com.bao.bank;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Account. Represents a bank account.
- */
+/** Account. Represents a bank account. */
 public class Account {
-  /**
-   * Account type.
-   */
+  /** Account type. */
   public enum AccountType {
-    /**
-     * Personal account.
-     */
+    /** Personal account. */
     PERSONAL,
 
-    /**
-     * Business account.
-     */
+    /** Business account. */
     BUSINESS,
-    
-    /**
-     * Private client account.
-     */
+
+    /** Private client account. */
     PRIVATE_CIIENT,
-    
-    /**
-     * VIP account. And the account holder is a Super-duper VIP.
-     */
+
+    /** VIP account. And the account holder is a Super-duper VIP. */
     SUPER_VIP
   }
 
@@ -41,17 +29,14 @@ public class Account {
 
   /**
    * Constructor
+   *
    * @param id: account id
    * @param type: account type
    * @param name: account holder name
    * @param address: account holder address
    * @param phone: account holder phone number
    */
-  public Account(int id,
-                 AccountType type,
-                 String name,
-                 String address,
-                 String phone) {
+  public Account(int id, AccountType type, String name, String address, String phone) {
     this.id = id;
     this.type = type;
     this.name = name;
@@ -62,6 +47,7 @@ public class Account {
 
   /**
    * Get account id.
+   *
    * @return account id
    */
   public int getId() {
@@ -70,6 +56,7 @@ public class Account {
 
   /**
    * Get account type.
+   *
    * @return account type
    */
   public AccountType getType() {
@@ -78,6 +65,7 @@ public class Account {
 
   /**
    * Get account holder name.
+   *
    * @return account holder name
    */
   public String getName() {
@@ -86,6 +74,7 @@ public class Account {
 
   /**
    * Get account holder address.
+   *
    * @return account holder address
    */
   public String getAddress() {
@@ -94,6 +83,7 @@ public class Account {
 
   /**
    * Get account holder phone number.
+   *
    * @return account holder phone number
    */
   public String getPhone() {
@@ -102,6 +92,7 @@ public class Account {
 
   /**
    * Get account assets.
+   *
    * @return account assets
    */
   public List<Asset> getAssets() {
@@ -110,6 +101,7 @@ public class Account {
 
   /**
    * Get account balance.
+   *
    * @return account balance
    */
   public double getBalance() {
@@ -122,6 +114,7 @@ public class Account {
 
   /**
    * Add an asset to the account.
+   *
    * @param asset: asset to add
    */
   public void deposit(Asset asset) {
@@ -136,6 +129,7 @@ public class Account {
 
   /**
    * Remove some asset from the account.
+   *
    * @param asset_to_withdraw: asset to withdraw from the account.
    * @throws Error if the asset is not found or the balance is insufficient.
    */
@@ -143,9 +137,9 @@ public class Account {
     for (Asset asset : assets) {
       if (asset.isCompatible(asset_to_withdraw)) {
         if (asset.getBalance() < asset_to_withdraw.getBalance()) {
-          throw new Error(String.format(
-            "Insufficient balance: cannot withdraw %s from %s",
-            asset_to_withdraw, asset));
+          throw new Error(
+              String.format(
+                  "Insufficient balance: cannot withdraw %s from %s", asset_to_withdraw, asset));
         } else if (asset.getBalance() == asset_to_withdraw.getBalance()) {
           assets.remove(asset);
         } else {
@@ -155,11 +149,9 @@ public class Account {
       }
     }
     throw new Error(String.format("Asset %s not found", asset_to_withdraw));
-  } 
+  }
 
-  /**
-   * Remove all assets from the account.
-   */
+  /** Remove all assets from the account. */
   public void removeAllAsset() {
     assets.clear();
   }

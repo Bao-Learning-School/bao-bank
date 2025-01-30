@@ -1,20 +1,17 @@
 package com.bao.bank;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.List;
 
 public class AccountTest {
   private Account account;
 
   @BeforeEach
   public void setUp() {
-    account = new Account(1,
-        Account.AccountType.PERSONAL,
-        "John Doe",
-        "123 Main St",
-        "555-1234");
+    account = new Account(1, Account.AccountType.PERSONAL, "John Doe", "123 Main St", "555-1234");
   }
 
   @Test
@@ -75,11 +72,15 @@ public class AccountTest {
   public void testWithdrawInsufficientBalance() {
     Asset asset = new Cash(100.0);
     account.deposit(asset);
-    Error error = assertThrows(Error.class, () -> {
-      account.withdraw(new Cash(150.0));
-    });
+    Error error =
+        assertThrows(
+            Error.class,
+            () -> {
+              account.withdraw(new Cash(150.0));
+            });
 
-    assertEquals("Insufficient balance: cannot withdraw (Cash: $150.00) from (Cash: $100.00)",
+    assertEquals(
+        "Insufficient balance: cannot withdraw (Cash: $150.00) from (Cash: $100.00)",
         error.getMessage());
   }
 
@@ -105,15 +106,23 @@ public class AccountTest {
     account.withdraw(new Stock("AAPL", 50, 100.0));
     account.withdraw(new Bonds(500.0));
 
-    Error error = assertThrows(Error.class, () -> {
-      account.withdraw(new Cash(150.0));
-    });
+    Error error =
+        assertThrows(
+            Error.class,
+            () -> {
+              account.withdraw(new Cash(150.0));
+            });
     assertEquals("Asset (Cash: $150.00) not found", error.getMessage());
 
-    Error error2 = assertThrows(Error.class, () -> {
-      account.withdraw(new Stock("GOOG", 300, 1500.0));
-    });
-    assertEquals("Insufficient balance: cannot withdraw (Stock: GOOG x 300 @ $1500.00) "
-        + "from (Stock: GOOG x 100 @ $1500.00)", error2.getMessage());
+    Error error2 =
+        assertThrows(
+            Error.class,
+            () -> {
+              account.withdraw(new Stock("GOOG", 300, 1500.0));
+            });
+    assertEquals(
+        "Insufficient balance: cannot withdraw (Stock: GOOG x 300 @ $1500.00) "
+            + "from (Stock: GOOG x 100 @ $1500.00)",
+        error2.getMessage());
   }
 }
